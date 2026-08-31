@@ -15,6 +15,7 @@ import { deriveBuildVersion, deriveSystemStatus } from '../../domain/my-ai/selec
 import { useI18n } from '../../i18n/useI18n';
 import { useMyAIStore } from '../../state/useMyAIStore';
 import styles from './MyAIStatus.module.css';
+import reference from './MyAIStatusReference.module.css';
 
 const symbols: Record<CapabilityStatus, string> = {
   locked: 'INACTIVE',
@@ -36,17 +37,17 @@ const capabilityIcons = {
   'language-model': BracketsCurly,
 } satisfies Record<CapabilityId, typeof Database>;
 
-function CoreBlueprint() {
+function CoreBlueprint({ referenceMode = false }: { referenceMode?: boolean }) {
   return (
-    <section className={styles.blueprint} aria-label="AI core blueprint">
-      <div className={styles.blueprintMeta}>
+    <section className={`${styles.blueprint} ${referenceMode ? reference.blueprint : ''}`} aria-label="AI core blueprint">
+      <div className={`${styles.blueprintMeta} ${referenceMode ? reference.blueprintMeta : ''}`}>
         <span>CORE</span>
         <strong>BLUEPRINT</strong>
         <small>ID: AI-CORE-00</small>
         <span>STATUS</span>
         <small>UNINITIALIZED</small>
       </div>
-      <svg viewBox="0 0 220 132" aria-hidden="true" className={styles.coreGlyph}>
+      <svg viewBox="0 0 220 132" aria-hidden="true" className={`${styles.coreGlyph} ${referenceMode ? reference.coreGlyph : ''}`}>
         <g className={styles.gridLines}>
           <path d="M0 22H220M0 66H220M0 110H220M44 0V132M110 0V132M176 0V132" />
         </g>
@@ -70,15 +71,15 @@ function CoreBlueprint() {
   );
 }
 
-export function MyAIStatus() {
+export function MyAIStatus({ referenceMode = false }: { referenceMode?: boolean }) {
   const { t } = useI18n();
   const capabilities = useMyAIStore((state) => state.capabilities);
   const build = deriveBuildVersion(capabilities);
   const systemStatus = deriveSystemStatus(capabilities);
 
   return (
-    <aside className={styles.status} aria-labelledby="my-ai-title">
-      <div className={styles.heading}>
+    <aside className={`${styles.status} ${referenceMode ? reference.status : ''}`} aria-labelledby="my-ai-title">
+      <div className={`${styles.heading} ${referenceMode ? reference.heading : ''}`}>
         <div>
           <h2 id="my-ai-title">MY AI</h2>
           <p>CORE CONSTRUCT // AL-00</p>
@@ -86,14 +87,14 @@ export function MyAIStatus() {
         <strong>BUILD {build}</strong>
       </div>
 
-      <CoreBlueprint />
+      <CoreBlueprint referenceMode={referenceMode} />
 
-      <dl className={styles.capabilities}>
+      <dl className={`${styles.capabilities} ${referenceMode ? reference.capabilities : ''}`}>
         {CAPABILITY_ORDER.map((id) => {
           const capability = capabilities[id];
           const Icon = capabilityIcons[id];
           return (
-            <div key={id} className={styles.capability} data-status={capability.status}>
+            <div key={id} className={`${styles.capability} ${referenceMode ? reference.capability : ''}`} data-status={capability.status}>
               <dt><Icon aria-hidden="true" size={19} weight="light" />{capability.label}</dt>
               <dd data-status={capability.status} aria-label={t(`status.${capability.status}`)}>
                 {symbols[capability.status]}
@@ -103,7 +104,7 @@ export function MyAIStatus() {
         })}
       </dl>
 
-      <p className={styles.systemStatus}>
+      <p className={`${styles.systemStatus} ${referenceMode ? reference.systemStatus : ''}`}>
         <span>STATUS // CORE STATE</span>
         <strong>{systemStatus}</strong>
       </p>
