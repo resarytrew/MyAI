@@ -13,6 +13,7 @@ import {
 import type { ChapterScene as ChapterSceneData, SceneSubmission } from '../../domain/journey/sceneTypes';
 import { useI18n } from '../../i18n/useI18n';
 import styles from './BootSequenceScene.module.css';
+import precision from './BootSequenceScenePrecision.module.css';
 
 const diagnostics = [
   { icon: Lightning, label: 'POWER CORE', value: '100%' },
@@ -38,48 +39,48 @@ export function BootSequenceScene({
   const ru = locale === 'ru';
 
   return (
-    <article className={styles.bootScene}>
-      <header className={styles.hero}>
-        <div className={styles.logoTile} aria-hidden="true">
-          <span className={styles.logoMark}><i /></span>
+    <article className={`${styles.bootScene} ${precision.bootScene}`}>
+      <header className={`${styles.hero} ${precision.hero}`}>
+        <div className={`${styles.logoTile} ${precision.logoTile}`} aria-hidden="true">
+          <span className={`${styles.logoMark} ${precision.logoMark}`}><i /></span>
           <small>AI LAB OS<br />v0.0.0.1</small>
         </div>
-        <div className={styles.heroCopy}>
+        <div className={`${styles.heroCopy} ${precision.heroCopy}`}>
           <h1 aria-label={scene.title[locale]}>BOOT</h1>
           <p>AI LAB RESEARCH STATION</p>
         </div>
       </header>
 
-      <section className={styles.consolePanel} aria-label={ru ? 'Системная консоль' : 'System console'}>
-        <div className={styles.panelHeader}>
+      <section className={`${styles.consolePanel} ${precision.consolePanel}`} aria-label={ru ? 'Системная консоль' : 'System console'}>
+        <div className={`${styles.panelHeader} ${precision.panelHeader}`}>
           <span>+ SYSTEM CONSOLE // BOOT SEQUENCE</span>
           <span>LOG: BOOT-00.00.1&nbsp;&nbsp;&nbsp;+</span>
         </div>
 
-        <div className={styles.consoleContent}>
-          <div className={styles.consoleText}>
-            <p className={styles.bootLines}>
+        <div className={`${styles.consoleContent} ${precision.consoleContent}`}>
+          <div className={`${styles.consoleText} ${precision.consoleText}`}>
+            <p className={`${styles.bootLines} ${precision.bootLines}`}>
               <span>AI LAB OS loaded successfully.</span>
               <span>Research Station online.</span>
               <span>Intelligence module <b className={styles.dots} /> <strong>MISSING</strong></span>
               <span>Internal memory <b className={styles.dots} /> <strong>EMPTY</strong></span>
             </p>
 
-            <p className={styles.narrative}>
+            <p className={`${styles.narrative} ${precision.narrative}`}>
               {ru
                 ? <>Эта станция может выполнять эксперименты,<br />но разум внутри неё ещё не создан.<br />Инициализируй ядро и построй первый интеллект.</>
                 : <>This station can run experiments,<br />but the mind within is not yet born.<br />Initialize the core and build the first intelligence.</>}
             </p>
 
-            <p className={styles.prompt}>
+            <p className={`${styles.prompt} ${precision.prompt}`}>
               {ru ? 'Начать последовательность инициализации?' : 'Shall we begin the initialization sequence?'}
               <span>&gt;&nbsp; <i>_</i></span>
             </p>
 
-            <p className={styles.missionLine}>{scene.content.body[locale]}</p>
+            <p className={`${styles.missionLine} ${precision.missionLine}`}>{scene.content.body[locale]}</p>
           </div>
 
-          <aside className={styles.telemetry} aria-hidden="true">
+          <aside className={`${styles.telemetry} ${precision.telemetry}`} aria-hidden="true">
             <svg viewBox="0 0 92 42" className={styles.signalWave}>
               <path d="M2 25h16l5-8 8 17 8-27 10 22 8-12 8 8h25" />
             </svg>
@@ -90,15 +91,15 @@ export function BootSequenceScene({
         </div>
       </section>
 
-      <section className={styles.diagnosticsPanel} aria-label={ru ? 'Диагностика системы' : 'System diagnostics'}>
-        <div className={styles.diagnosticsHeader}>
+      <section className={`${styles.diagnosticsPanel} ${precision.diagnosticsPanel}`} aria-label={ru ? 'Диагностика системы' : 'System diagnostics'}>
+        <div className={`${styles.diagnosticsHeader} ${precision.diagnosticsHeader}`}>
           <span>SYSTEM DIAGNOSTICS</span>
-          <div className={styles.trace} aria-hidden="true"><i /><i /><i /><i /><i /><i /><i /></div>
+          <div className={`${styles.trace} ${precision.trace}`} aria-hidden="true"><i /><i /><i /><i /><i /><i /><i /></div>
           <span>STATUS: NOMINAL <i className={styles.statusDot} /></span>
         </div>
-        <div className={styles.diagnosticsGrid}>
+        <div className={`${styles.diagnosticsGrid} ${precision.diagnosticsGrid}`}>
           {diagnostics.map(({ icon: Icon, label, value }) => (
-            <div key={label} className={styles.diagnosticCell}>
+            <div key={label} className={`${styles.diagnosticCell} ${precision.diagnosticCell}`}>
               <Icon size={18} weight="light" aria-hidden="true" />
               <span>{label}</span>
               <strong>{value}</strong>
@@ -115,10 +116,10 @@ export function BootSequenceScene({
         </section>
       ) : null}
 
-      <footer className={styles.actions}>
+      <footer className={`${styles.actions} ${precision.actions}`}>
         <button
           type="button"
-          className={styles.primaryAction}
+          className={`${styles.primaryAction} ${precision.primaryAction}`}
           aria-label={scene.content.actionLabel[locale]}
           onClick={() => onSubmit({ type: 'chapter-activity' })}
         >
@@ -128,7 +129,7 @@ export function BootSequenceScene({
         </button>
         <button
           type="button"
-          className={styles.secondaryAction}
+          className={`${styles.secondaryAction} ${precision.secondaryAction}`}
           aria-expanded={briefOpen}
           onClick={() => setBriefOpen((open) => !open)}
         >

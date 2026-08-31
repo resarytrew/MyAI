@@ -5,8 +5,8 @@
 .screenHeader {
   grid-template-columns: minmax(0, 1fr) auto auto;
   min-height: 50px;
-  gap: 1.15rem;
-  margin-inline: 1.9rem;
+  gap: .9rem;
+  margin-inline: 1.55rem;
   border-bottom-color: rgb(255 148 24 / 30%);
   padding-block: .35rem;
 }
@@ -38,25 +38,25 @@
 }
 
 .headerTools {
-  opacity: .66;
+  opacity: .58;
 }
 
 .languageButton {
-  min-width: 31px !important;
-  min-height: 27px !important;
+  min-width: 29px !important;
+  min-height: 25px !important;
   padding: 0 !important;
-  border-color: rgb(24 237 240 / 15%) !important;
-  font-size: .53rem !important;
+  border-color: rgb(24 237 240 / 13%) !important;
+  font-size: .5rem !important;
 }
 
 .workspace {
-  grid-template-columns: minmax(0, 1fr) clamp(21rem, 27vw, 27rem);
-  gap: clamp(1.5rem, 3vw, 3rem);
-  padding: .65rem 2.15rem .85rem;
+  grid-template-columns: minmax(0, 1fr) clamp(22rem, 26.2vw, 27.5rem);
+  gap: clamp(1.5rem, 2.5vw, 2.75rem);
+  padding: .72rem 1.65rem .8rem;
 }
 
 .scene {
-  overflow: auto;
+  overflow: hidden;
 }
 
 @media (max-width: 1120px) {
@@ -93,6 +93,10 @@
   .workspace {
     grid-template-columns: 1fr;
     padding: 1rem;
+  }
+
+  .scene {
+    overflow: visible;
   }
 }
 
