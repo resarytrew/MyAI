@@ -20,6 +20,8 @@ export function MonitorShell({
 }: MonitorShellProps) {
   const { locale, setLocale, t } = useI18n();
   const currentLevel = Math.min(6, Math.max(1, Math.ceil((sceneIndex / sceneTotal) * 6)));
+  const isBootSequence = activeProgram === 'BOOTLOADER' && sceneIndex === 1;
+  const programLabel = isBootSequence ? 'AI LAB OS / BOOTLOADER' : activeProgram;
 
   return (
     <main className={`${styles.station} ${industrial.station}`}>
@@ -73,21 +75,29 @@ export function MonitorShell({
             <div className={industrial.innerBezel}>
               <div className={industrial.screenGlass}>
                 <div className={`${styles.screenFrame} ${industrial.screenFrame}`}>
-                  <div className={`${styles.screen} ${industrial.screen}`}>
+                  <div className={`${styles.screen} ${industrial.screen}`} data-boot-sequence={isBootSequence}>
                     <header className={styles.screenHeader}>
                       <p>
                         <span className={styles.liveDot} aria-hidden="true" />
                         <span>{t('activeProgram')}</span>
-                        <strong>{activeProgram}</strong>
+                        <strong>{programLabel}</strong>
                       </p>
                       <div className={styles.chapterStatus}>
-                        <span className={styles.chapterTrail}>CHAPTER 01&nbsp;&nbsp;/&nbsp;&nbsp;INITIALIZATION</span>
-                        <span className={styles.levelReadout}>LEVEL {String(currentLevel).padStart(2, '0')} / 06</span>
-                        <span className={styles.levelRail} aria-label={`Level ${currentLevel} of 6`}>
-                          {Array.from({ length: 6 }, (_, index) => (
-                            <i key={index} data-state={index + 1 < currentLevel ? 'done' : index + 1 === currentLevel ? 'active' : 'locked'} />
-                          ))}
+                        <span className={styles.chapterTrail}>
+                          {isBootSequence
+                            ? <>CHAPTER 01&nbsp;&nbsp;/&nbsp;&nbsp;INITIALIZATION&nbsp;&nbsp;/&nbsp;&nbsp;RESTORE INPUT CORE</>
+                            : <>CHAPTER 01&nbsp;&nbsp;/&nbsp;&nbsp;INITIALIZATION</>}
                         </span>
+                        {!isBootSequence ? (
+                          <>
+                            <span className={styles.levelReadout}>LEVEL {String(currentLevel).padStart(2, '0')} / 06</span>
+                            <span className={styles.levelRail} aria-label={`Level ${currentLevel} of 6`}>
+                              {Array.from({ length: 6 }, (_, index) => (
+                                <i key={index} data-state={index + 1 < currentLevel ? 'done' : index + 1 === currentLevel ? 'active' : 'locked'} />
+                              ))}
+                            </span>
+                          </>
+                        ) : null}
                       </div>
                       <div className={styles.headerTools}>
                         <div className={styles.languageSwitch} aria-label={t('languageLabel')}>
