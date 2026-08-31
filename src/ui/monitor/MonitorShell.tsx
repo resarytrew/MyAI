@@ -4,6 +4,7 @@ import { MyAIStatus } from './MyAIStatus';
 import { ResetLabButton } from '../common/ResetLabButton';
 import styles from './MonitorShell.module.css';
 import industrial from './MonitorShellIndustrial.module.css';
+import boot from './MonitorShellBoot.module.css';
 
 interface MonitorShellProps {
   activeProgram: string;
@@ -20,6 +21,8 @@ export function MonitorShell({
 }: MonitorShellProps) {
   const { locale, setLocale, t } = useI18n();
   const currentLevel = Math.min(6, Math.max(1, Math.ceil((sceneIndex / sceneTotal) * 6)));
+  const isBootSequence = activeProgram === 'BOOTLOADER' && sceneIndex === 1;
+  const programLabel = isBootSequence ? 'AI LAB OS / BOOTLOADER' : activeProgram;
 
   return (
     <main className={`${styles.station} ${industrial.station}`}>
@@ -73,33 +76,41 @@ export function MonitorShell({
             <div className={industrial.innerBezel}>
               <div className={industrial.screenGlass}>
                 <div className={`${styles.screenFrame} ${industrial.screenFrame}`}>
-                  <div className={`${styles.screen} ${industrial.screen}`}>
-                    <header className={styles.screenHeader}>
+                  <div className={`${styles.screen} ${industrial.screen} ${isBootSequence ? boot.screen : ''}`} data-boot-sequence={isBootSequence}>
+                    <header className={`${styles.screenHeader} ${isBootSequence ? boot.screenHeader : ''}`}>
                       <p>
                         <span className={styles.liveDot} aria-hidden="true" />
                         <span>{t('activeProgram')}</span>
-                        <strong>{activeProgram}</strong>
+                        <strong>{programLabel}</strong>
                       </p>
-                      <div className={styles.chapterStatus}>
-                        <span className={styles.chapterTrail}>CHAPTER 01&nbsp;&nbsp;/&nbsp;&nbsp;INITIALIZATION</span>
-                        <span className={styles.levelReadout}>LEVEL {String(currentLevel).padStart(2, '0')} / 06</span>
-                        <span className={styles.levelRail} aria-label={`Level ${currentLevel} of 6`}>
-                          {Array.from({ length: 6 }, (_, index) => (
-                            <i key={index} data-state={index + 1 < currentLevel ? 'done' : index + 1 === currentLevel ? 'active' : 'locked'} />
-                          ))}
+                      <div className={`${styles.chapterStatus} ${isBootSequence ? boot.chapterStatus : ''}`}>
+                        <span className={`${styles.chapterTrail} ${isBootSequence ? boot.chapterTrail : ''}`}>
+                          {isBootSequence
+                            ? <>CHAPTER 01&nbsp;&nbsp;/&nbsp;&nbsp;INITIALIZATION&nbsp;&nbsp;/&nbsp;&nbsp;RESTORE INPUT CORE</>
+                            : <>CHAPTER 01&nbsp;&nbsp;/&nbsp;&nbsp;INITIALIZATION</>}
                         </span>
+                        {!isBootSequence ? (
+                          <>
+                            <span className={styles.levelReadout}>LEVEL {String(currentLevel).padStart(2, '0')} / 06</span>
+                            <span className={styles.levelRail} aria-label={`Level ${currentLevel} of 6`}>
+                              {Array.from({ length: 6 }, (_, index) => (
+                                <i key={index} data-state={index + 1 < currentLevel ? 'done' : index + 1 === currentLevel ? 'active' : 'locked'} />
+                              ))}
+                            </span>
+                          </>
+                        ) : null}
                       </div>
-                      <div className={styles.headerTools}>
+                      <div className={`${styles.headerTools} ${isBootSequence ? boot.headerTools : ''}`}>
                         <div className={styles.languageSwitch} aria-label={t('languageLabel')}>
-                          <button type="button" aria-pressed={locale === 'ru'} onClick={() => setLocale('ru')}>RU</button>
-                          <button type="button" aria-pressed={locale === 'en'} onClick={() => setLocale('en')}>EN</button>
+                          <button className={isBootSequence ? boot.languageButton : ''} type="button" aria-pressed={locale === 'ru'} onClick={() => setLocale('ru')}>RU</button>
+                          <button className={isBootSequence ? boot.languageButton : ''} type="button" aria-pressed={locale === 'en'} onClick={() => setLocale('en')}>EN</button>
                         </div>
                       </div>
                     </header>
 
-                    <div className={styles.workspace}>
-                      <div className={styles.scene}>{children}</div>
-                      <MyAIStatus />
+                    <div className={`${styles.workspace} ${isBootSequence ? boot.workspace : ''}`}>
+                      <div className={`${styles.scene} ${isBootSequence ? boot.scene : ''}`}>{children}</div>
+                      <MyAIStatus referenceMode={isBootSequence} />
                     </div>
 
                     <div className={industrial.glassReflection} aria-hidden="true" />
