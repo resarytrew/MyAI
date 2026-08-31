@@ -1,0 +1,250 @@
+.bootScene {
+  grid-template-rows: 6.7rem minmax(17.4rem, 1fr) 8.35rem 4.7rem;
+  gap: .68rem;
+  padding: .18rem 0 .08rem;
+}
+
+.hero {
+  min-height: 6.7rem;
+  gap: 1.35rem;
+  padding: .08rem 0 .12rem;
+}
+
+.logoTile {
+  width: 6.9rem;
+  min-width: 6.9rem;
+  height: 6.25rem;
+  border-color: rgb(24 237 240 / 36%);
+  box-shadow:
+    inset 0 0 0 1px rgb(0 0 0 / 48%),
+    inset 0 0 1.55rem rgb(0 0 0 / 58%),
+    0 0 12px rgb(24 237 240 / 4%);
+}
+
+.logoMark {
+  width: 3.55rem;
+  height: 3.18rem;
+  border-width: 2px;
+}
+
+.heroCopy h1 {
+  font-size: clamp(4rem, 4.35vw, 4.65rem);
+  line-height: .8;
+  letter-spacing: .055em;
+}
+
+.heroCopy p {
+  margin-top: .7rem;
+  font-size: clamp(.67rem, .76vw, .8rem);
+  letter-spacing: .115em;
+}
+
+.consolePanel {
+  min-height: 17.4rem;
+}
+
+.panelHeader {
+  min-height: 2rem;
+  padding: .15rem 1.38rem;
+  font-size: .52rem;
+}
+
+.consoleContent {
+  grid-template-columns: minmax(0, 1fr) 6.6rem;
+  min-height: 0;
+  height: calc(100% - 2rem);
+  gap: .8rem;
+  padding: 1rem 1.2rem 1.02rem 1.42rem;
+}
+
+.consoleText {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.bootLines {
+  max-width: 38.5rem;
+  gap: .2rem;
+  font-size: clamp(.71rem, .75vw, .8rem);
+  line-height: 1.22;
+}
+
+.narrative {
+  margin-top: 1.45rem;
+  font-size: clamp(.71rem, .77vw, .82rem);
+  line-height: 1.43;
+}
+
+.prompt {
+  margin-top: 1.35rem;
+  font-size: clamp(.72rem, .78vw, .84rem);
+}
+
+.prompt > span {
+  margin-top: .46rem;
+}
+
+.telemetry {
+  gap: .48rem;
+  padding-left: .72rem;
+}
+
+.diagnosticsPanel {
+  min-height: 8.35rem;
+}
+
+.diagnosticsHeader {
+  min-height: 1.9rem;
+  padding-inline: 1.42rem;
+}
+
+.trace {
+  width: 7.25rem;
+}
+
+.diagnosticsGrid {
+  height: calc(100% - 1.9rem);
+  padding: .34rem .95rem .5rem;
+}
+
+.diagnosticCell {
+  min-height: 1.9rem;
+  padding: .12rem .68rem;
+  font-size: .47rem;
+}
+
+.actions {
+  grid-template-columns: minmax(19rem, 1.92fr) minmax(13rem, .98fr);
+  gap: .95rem;
+  min-height: 4.7rem;
+}
+
+.primaryAction,
+.secondaryAction {
+  min-height: 4.7rem;
+}
+
+.primaryAction {
+  font-size: clamp(.95rem, 1vw, 1.08rem);
+  letter-spacing: .14em;
+}
+
+.secondaryAction {
+  font-size: clamp(.72rem, .78vw, .84rem);
+}
+
+@media (min-width: 901px) {
+  .missionLine {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+@media (max-height: 820px) and (min-width: 901px) {
+  .bootScene {
+    grid-template-rows: 5.3rem minmax(12rem, 1fr) 6rem 3.8rem;
+    gap: .48rem;
+  }
+
+  .hero {
+    min-height: 5.3rem;
+  }
+
+  .logoTile {
+    width: 5.5rem;
+    min-width: 5.5rem;
+    height: 4.9rem;
+  }
+
+  .logoMark {
+    width: 2.75rem;
+    height: 2.45rem;
+  }
+
+  .logoTile small {
+    display: none;
+  }
+
+  .heroCopy h1 {
+    font-size: 3.55rem;
+  }
+
+  .heroCopy p {
+    margin-top: .45rem;
+    font-size: .61rem;
+  }
+
+  .consolePanel {
+    min-height: 12rem;
+  }
+
+  .consoleContent {
+    padding-block: .62rem;
+  }
+
+  .narrative {
+    margin-top: .72rem;
+    line-height: 1.28;
+  }
+
+  .prompt {
+    margin-top: .68rem;
+  }
+
+  .diagnosticsPanel {
+    min-height: 6rem;
+  }
+
+  .diagnosticCell {
+    min-height: 1.5rem;
+  }
+
+  .actions,
+  .primaryAction,
+  .secondaryAction {
+    min-height: 3.8rem;
+  }
+}
+
+@media (max-width: 1120px) {
+  .bootScene {
+    grid-template-rows: auto minmax(14rem, 1fr) auto auto;
+  }
+
+  .logoTile {
+    width: 6rem;
+    min-width: 6rem;
+    height: 5.45rem;
+  }
+
+  .heroCopy h1 {
+    font-size: clamp(3.5rem, 6vw, 4.2rem);
+  }
+}
+
+@media (max-width: 900px) {
+  .bootScene {
+    grid-template-rows: none;
+  }
+
+  .hero,
+  .logoTile,
+  .consolePanel,
+  .diagnosticsPanel,
+  .actions,
+  .primaryAction,
+  .secondaryAction {
+    min-height: initial;
+  }
+
+  .consoleContent,
+  .diagnosticsGrid {
+    height: auto;
+  }
+}
