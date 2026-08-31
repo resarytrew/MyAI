@@ -54,11 +54,18 @@ function CoreBlueprint({ referenceMode = false }: { referenceMode?: boolean }) {
         <g className={styles.coreLines}>
           <path d="M110 18v96M110 31C83 11 50 35 61 61c-17 20 2 50 27 41 8 12 22 3 22-8M110 31c27-20 60 4 49 30 17 20-2 50-27 41-8 12-22 3-22-8" />
           <path d="M72 49c10-13 27-5 27 8M69 72c13-7 29 3 26 17M148 49c-10-13-27-5-27 8M151 72c-13-7-29 3-26 17" />
+          <path d="M82 39l9 9-8 11 11 8-9 11 10 11M138 39l-9 9 8 11-11 8 9 11-10 11" />
+          <path d="M62 61h18l8 5M158 61h-18l-8 5M63 82h17l8-8M157 82h-17l-8-8" />
+          <path d="M91 35v11M129 35v11M91 87v12M129 87v12" />
           <circle cx="110" cy="66" r="8" />
           <circle cx="76" cy="48" r="3" />
           <circle cx="144" cy="48" r="3" />
           <circle cx="82" cy="91" r="3" />
           <circle cx="138" cy="91" r="3" />
+          <circle cx="91" cy="55" r="2" />
+          <circle cx="129" cy="55" r="2" />
+          <circle cx="91" cy="78" r="2" />
+          <circle cx="129" cy="78" r="2" />
           <path d="M18 66h35M167 66h35M110 7v11M110 114v11" />
         </g>
         <g className={styles.telemetryBars}>
@@ -76,6 +83,7 @@ export function MyAIStatus({ referenceMode = false }: { referenceMode?: boolean 
   const capabilities = useMyAIStore((state) => state.capabilities);
   const build = deriveBuildVersion(capabilities);
   const systemStatus = deriveSystemStatus(capabilities);
+  const displayedSystemStatus = referenceMode && build === '0.0' ? 'AWAITING INITIALIZATION' : systemStatus;
 
   return (
     <aside className={`${styles.status} ${referenceMode ? reference.status : ''}`} aria-labelledby="my-ai-title">
@@ -105,8 +113,8 @@ export function MyAIStatus({ referenceMode = false }: { referenceMode?: boolean 
       </dl>
 
       <p className={`${styles.systemStatus} ${referenceMode ? reference.systemStatus : ''}`}>
-        <span>STATUS // CORE STATE</span>
-        <strong>{systemStatus}</strong>
+        <span>{referenceMode ? 'STATUS' : 'STATUS // CORE STATE'}</span>
+        <strong>{displayedSystemStatus}</strong>
       </p>
     </aside>
   );
