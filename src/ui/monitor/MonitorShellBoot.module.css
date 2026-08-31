@@ -41,12 +41,12 @@
   opacity: .66;
 }
 
-.languageSwitch button {
-  min-width: 31px;
-  min-height: 27px;
-  padding: 0;
-  border-color: rgb(24 237 240 / 15%);
-  font-size: .53rem;
+.languageButton {
+  min-width: 31px !important;
+  min-height: 27px !important;
+  padding: 0 !important;
+  border-color: rgb(24 237 240 / 15%) !important;
+  font-size: .53rem !important;
 }
 
 .workspace {
