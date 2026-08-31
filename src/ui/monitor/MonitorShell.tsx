@@ -4,6 +4,7 @@ import { MyAIStatus } from './MyAIStatus';
 import { ResetLabButton } from '../common/ResetLabButton';
 import styles from './MonitorShell.module.css';
 import industrial from './MonitorShellIndustrial.module.css';
+import boot from './MonitorShellBoot.module.css';
 
 interface MonitorShellProps {
   activeProgram: string;
@@ -75,15 +76,15 @@ export function MonitorShell({
             <div className={industrial.innerBezel}>
               <div className={industrial.screenGlass}>
                 <div className={`${styles.screenFrame} ${industrial.screenFrame}`}>
-                  <div className={`${styles.screen} ${industrial.screen}`} data-boot-sequence={isBootSequence}>
-                    <header className={styles.screenHeader}>
+                  <div className={`${styles.screen} ${industrial.screen} ${isBootSequence ? boot.screen : ''}`} data-boot-sequence={isBootSequence}>
+                    <header className={`${styles.screenHeader} ${isBootSequence ? boot.screenHeader : ''}`}>
                       <p>
                         <span className={styles.liveDot} aria-hidden="true" />
                         <span>{t('activeProgram')}</span>
                         <strong>{programLabel}</strong>
                       </p>
-                      <div className={styles.chapterStatus}>
-                        <span className={styles.chapterTrail}>
+                      <div className={`${styles.chapterStatus} ${isBootSequence ? boot.chapterStatus : ''}`}>
+                        <span className={`${styles.chapterTrail} ${isBootSequence ? boot.chapterTrail : ''}`}>
                           {isBootSequence
                             ? <>CHAPTER 01&nbsp;&nbsp;/&nbsp;&nbsp;INITIALIZATION&nbsp;&nbsp;/&nbsp;&nbsp;RESTORE INPUT CORE</>
                             : <>CHAPTER 01&nbsp;&nbsp;/&nbsp;&nbsp;INITIALIZATION</>}
@@ -99,17 +100,17 @@ export function MonitorShell({
                           </>
                         ) : null}
                       </div>
-                      <div className={styles.headerTools}>
+                      <div className={`${styles.headerTools} ${isBootSequence ? boot.headerTools : ''}`}>
                         <div className={styles.languageSwitch} aria-label={t('languageLabel')}>
-                          <button type="button" aria-pressed={locale === 'ru'} onClick={() => setLocale('ru')}>RU</button>
-                          <button type="button" aria-pressed={locale === 'en'} onClick={() => setLocale('en')}>EN</button>
+                          <button className={isBootSequence ? boot.languageButton : ''} type="button" aria-pressed={locale === 'ru'} onClick={() => setLocale('ru')}>RU</button>
+                          <button className={isBootSequence ? boot.languageButton : ''} type="button" aria-pressed={locale === 'en'} onClick={() => setLocale('en')}>EN</button>
                         </div>
                       </div>
                     </header>
 
-                    <div className={styles.workspace}>
-                      <div className={styles.scene}>{children}</div>
-                      <MyAIStatus />
+                    <div className={`${styles.workspace} ${isBootSequence ? boot.workspace : ''}`}>
+                      <div className={`${styles.scene} ${isBootSequence ? boot.scene : ''}`}>{children}</div>
+                      <MyAIStatus referenceMode={isBootSequence} />
                     </div>
 
                     <div className={industrial.glassReflection} aria-hidden="true" />
