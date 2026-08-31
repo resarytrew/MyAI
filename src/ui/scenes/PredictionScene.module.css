@@ -1,0 +1,45 @@
+.options {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.options legend {
+  margin-bottom: 1rem;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+}
+
+.option {
+  display: grid;
+  grid-template-columns: auto auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 52px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  padding: 0.7rem 0.9rem;
+  cursor: pointer;
+}
+
+.option:has(input:checked) {
+  border-color: var(--cyan);
+  background: rgb(61 245 255 / 6%);
+}
+
+.option input {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: var(--cyan);
+}
+
+.option span {
+  color: var(--cyan);
+  font-family: var(--font-mono);
+}
+
+.option strong {
+  font-weight: 500;
+}

@@ -1,0 +1,14 @@
+.reset {
+  min-height: 34px;
+  border: 1px solid rgb(24 237 240 / 24%);
+  border-radius: 0;
+  background: rgb(0 0 0 / 24%);
+  color: #637174;
+  padding: .5rem .65rem;
+  font-family: var(--font-mono);
+  font-size: .5rem;
+  letter-spacing: .08em;
+  cursor: pointer;
+  clip-path: var(--cut-panel);
+}
+.reset:hover,.reset[data-confirming='true'] { border-color: var(--danger); color: var(--danger); }

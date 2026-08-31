@@ -1,0 +1,468 @@
+.neuronView,
+.experimentStack,
+.lossView,
+.gradientView {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.neuronDiagram {
+  width: 100%;
+  min-height: 210px;
+  overflow: visible;
+  color: var(--cyan);
+}
+
+.signalPath {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+
+.diagramNode {
+  cursor: default;
+}
+
+.diagramNode[role='button'] {
+  cursor: pointer;
+}
+
+.diagramNode circle,
+.diagramNode rect {
+  fill: var(--surface-raised);
+  stroke: var(--border);
+  stroke-width: 2;
+  transition:
+    fill var(--transition-normal) ease,
+    stroke var(--transition-normal) ease;
+}
+
+.diagramNode[data-active='true'] circle,
+.diagramNode[data-active='true'] rect,
+.diagramNode:focus-visible circle,
+.diagramNode:focus-visible rect {
+  fill: rgb(61 245 255 / 10%);
+  stroke: var(--cyan);
+}
+
+.diagramNode:focus {
+  outline: none;
+}
+
+.diagramNode text {
+  fill: var(--text);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-anchor: middle;
+}
+
+.diagramNode text + text {
+  fill: var(--cyan);
+}
+
+.diagramNode .sumSymbol {
+  fill: var(--cyan);
+  font-size: 30px;
+}
+
+.explanation {
+  min-height: 2.9rem;
+  border-left: 2px solid var(--cyan);
+  padding-left: 1rem;
+  color: var(--text);
+}
+
+.readout,
+.gradientReadout {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--border);
+}
+
+.readout > div,
+.gradientReadout > div {
+  display: grid;
+  gap: 0.35rem;
+  background: var(--surface-raised);
+  padding: 0.65rem;
+  text-align: center;
+}
+
+.readout dt,
+.gradientReadout dt {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+}
+
+.readout dd,
+.gradientReadout dd {
+  margin: 0;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+}
+
+.sampleGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.sampleGrid article {
+  position: relative;
+  display: grid;
+  gap: 0.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--surface-raised);
+  padding: 1rem;
+  font-family: var(--font-mono);
+}
+
+.sampleGrid article[data-match='true'] {
+  border-color: var(--green);
+}
+
+.sampleGrid span,
+.sampleGrid small {
+  color: var(--muted);
+}
+
+.sampleGrid strong {
+  color: var(--cyan);
+  font-size: 1.8rem;
+}
+
+.sampleGrid em {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  color: var(--orange);
+  font-style: normal;
+}
+
+.sampleGrid article[data-match='true'] em {
+  color: var(--green);
+}
+
+.lossComparison,
+.lossChange {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1rem;
+}
+
+.numberLine {
+  width: 100%;
+  min-height: 124px;
+  overflow: visible;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: rgb(255 255 255 / 1.2%);
+  font-family: var(--font-mono);
+}
+
+.errorGap {
+  fill: rgb(255 159 26 / 16%);
+  stroke: rgb(255 159 26 / 50%);
+}
+
+.numberAxis {
+  stroke: var(--border);
+  stroke-width: 2;
+}
+
+.numberTick {
+  stroke: var(--muted);
+  stroke-width: 1;
+}
+
+.numberTickLabel {
+  fill: var(--muted);
+  font-size: 12px;
+}
+
+.predictionMarker {
+  fill: var(--orange);
+  filter: drop-shadow(0 0 6px rgb(255 159 26 / 50%));
+}
+
+.targetMarker {
+  fill: var(--green);
+  filter: drop-shadow(0 0 6px rgb(34 255 157 / 45%));
+}
+
+.predictionLabel,
+.targetLabel,
+.gapLabel {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.predictionLabel,
+.gapLabel {
+  fill: var(--orange);
+}
+
+.targetLabel {
+  fill: var(--green);
+}
+
+.lossComparison > div,
+.lossChange > div {
+  display: grid;
+  gap: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  padding: 1rem;
+  text-align: center;
+}
+
+.lossComparison span,
+.lossChange span {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+.lossComparison strong,
+.lossChange strong {
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 2rem;
+}
+
+.formulaSteps {
+  display: grid;
+  gap: 0.7rem;
+  border-left: 2px solid var(--orange);
+  padding-left: 1rem;
+  font-family: var(--font-mono);
+}
+
+.formulaSteps p {
+  margin: 0;
+}
+
+.formulaSteps strong {
+  color: var(--orange);
+}
+
+.lossCandidates {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.lossCandidate {
+  display: grid;
+  min-width: 0;
+  min-height: 9.5rem;
+  align-content: space-between;
+  gap: 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--surface-raised);
+  padding: 0.85rem;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    border-color var(--transition-fast) ease,
+    background var(--transition-fast) ease,
+    transform var(--transition-fast) ease;
+}
+
+.lossCandidate:hover {
+  border-color: rgb(61 245 255 / 40%);
+  transform: translateY(-2px);
+}
+
+.lossCandidate[data-selected='true'] {
+  border-color: var(--orange);
+  background: rgb(255 159 26 / 6%);
+}
+
+.lossCandidate[data-selected='true'][data-best='true'] {
+  border-color: var(--green);
+  background: rgb(34 255 157 / 6%);
+}
+
+.lossCandidate > span,
+.lossCandidate > small {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+}
+
+.lossCandidate code {
+  overflow: hidden;
+  color: var(--text);
+  font-family: var(--font-mono);
+  font-size: clamp(0.68rem, 1.2vw, 0.82rem);
+  text-overflow: ellipsis;
+}
+
+.lossCandidate > strong {
+  color: var(--orange);
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+}
+
+.lossCandidate[data-best='true'] > strong,
+.lossCandidate[data-best='true'] > small {
+  color: var(--green);
+}
+
+.lossNote {
+  border-left: 2px solid var(--orange);
+  background: rgb(255 159 26 / 4%);
+  padding: 0.8rem 1rem;
+}
+
+.lossNote[data-best='true'] {
+  border-color: var(--green);
+  background: rgb(34 255 157 / 4%);
+}
+
+.lossNote strong {
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+}
+
+.lossNote p {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+}
+
+.gradientReadout {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.gradientEquation {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--border);
+  font-family: var(--font-mono);
+}
+
+.gradientEquation > span,
+.gradientEquation > strong {
+  background: var(--surface-raised);
+  padding: 0.72rem 0.85rem;
+}
+
+.gradientEquation > span {
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.gradientEquation > strong {
+  color: var(--cyan);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.gradientResult {
+  display: grid;
+  gap: 0.85rem;
+  animation: result-enter 320ms ease-out both;
+}
+
+.beforeAfterTable {
+  display: grid;
+  grid-template-columns: minmax(6rem, 1fr) repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  background: var(--border);
+  font-family: var(--font-mono);
+}
+
+.beforeAfterTable > * {
+  margin: 0;
+  background: var(--surface-raised);
+  padding: 0.7rem 0.85rem;
+}
+
+.beforeAfterTable > span {
+  color: var(--muted);
+}
+
+.beforeAfterTable > strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.beforeAfterTable > b {
+  background: rgb(34 255 157 / 5%);
+  color: var(--green);
+  font-weight: 600;
+}
+
+.learningInsight {
+  margin: 0;
+  border-left: 2px solid var(--green);
+  background: rgb(34 255 157 / 4%);
+  padding: 0.8rem 1rem;
+  color: var(--muted);
+}
+
+.learningInsight > span {
+  color: var(--green);
+}
+
+@keyframes result-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.lossChange p {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .neuronDiagram {
+    min-height: 160px;
+  }
+
+  .readout {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sampleGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .lossCandidates {
+    grid-template-columns: 1fr;
+  }
+
+  .lossCandidate {
+    min-height: 0;
+  }
+
+  .gradientEquation {
+    grid-template-columns: 1fr;
+  }
+}

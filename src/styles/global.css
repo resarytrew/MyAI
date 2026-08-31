@@ -1,0 +1,66 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: #050708;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100dvh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 50% 0, rgb(27 53 55 / 26%), transparent 38rem),
+    linear-gradient(115deg, rgb(255 255 255 / 1.5%) 1px, transparent 1px),
+    #050708;
+  background-size: auto, 6px 6px, auto;
+  color: var(--text);
+  font-family: var(--font-body);
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--cyan);
+  color: #001213;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.foundation-screen__eyebrow {
+  margin: 0 0 0.75rem;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+}
+
+.foundation-screen__eyebrow + h1 {
+  max-width: 12ch;
+  margin: var(--space-3) 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 8vw, 6.5rem);
+  font-stretch: condensed;
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+}
+
+.foundation-screen__eyebrow + h1 + p {
+  max-width: 48ch;
+  color: var(--muted);
+  line-height: 1.6;
+}
