@@ -74,7 +74,7 @@ export function ChapterVisual({ visual }: { visual: ChapterVisualId }) {
     case 'feature-install':
       return <div className={styles.terminalVisual}>{rows([['FEATURE REGISTRY', 'READY'], ['INPUT VECTOR', 'READY'], ['REPRESENTATION LAYER', 'READY']])}</div>;
     case 'chapter-summary':
-      return <div className={styles.summaryVisual}><strong>BUILD 0.0 → BUILD 0.2</strong><span>DATA INTERFACE ✓</span><span>FEATURE SYSTEM ✓</span><small>RESEARCH ACCESS // LEVEL 01 → LEVEL 02</small></div>;
+      return <div className={styles.summaryVisual}><strong>BUILD 0.0 → BUILD 0.3</strong><span>DATA INTERFACE ✓</span><span>FEATURE SYSTEM ✓</span><span>REPRESENTATION LAYER ✓</span><small>RESEARCH ACCESS // LEVEL 01 → LEVEL 02</small></div>;
     case 'teaser':
       return <div className={styles.teaser}><code>[0.68, 49.20, 96.30]</code><span>DATA RECEIVED ✓</span><span>FEATURES EXTRACTED ✓</span><strong>DECISION: ?</strong><small>NEXT PROGRAM // DECISION ENGINE</small></div>;
   }

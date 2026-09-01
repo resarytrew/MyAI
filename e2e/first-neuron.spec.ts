@@ -30,7 +30,7 @@ async function completeUiScene(page: Page, scene: ChapterScene) {
   }
 }
 
-test('completes CHAPTER 01 and restores INPUT CORE BUILD 0.2', async ({ page }) => {
+test('completes CHAPTER 01 and enters DECISION ENGINE with INPUT CORE BUILD 0.3', async ({ page }) => {
   const consoleErrors: string[] = [];
   page.on('console', (message) => { if (message.type() === 'error') consoleErrors.push(message.text()); });
   page.on('pageerror', (error) => consoleErrors.push(error.message));
@@ -42,10 +42,9 @@ test('completes CHAPTER 01 and restores INPUT CORE BUILD 0.2', async ({ page }) 
 
   for (const scene of chapterOneJourney) await completeUiScene(page, scene);
 
-  await expect(page.getByRole('heading', { name: 'CHAPTER 01 COMPLETE' })).toBeVisible();
-  await expect(page.getByText('INPUT CORE ONLINE')).toBeVisible();
-  await expect(page.getByText('BUILD 0.2').first()).toBeVisible();
-  await expect(page.getByText(/Алекс, входное ядро MY AI работает/)).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'CHAPTER 02 // DECISION ENGINE' })).toBeVisible();
+  await expect(page.getByText('INPUT CORE').first()).toBeVisible();
+  await expect(page.getByText('BUILD 0.3').first()).toBeVisible();
 
   const stateBeforeReload = await page.evaluate(() => {
     const journey = JSON.parse(localStorage.getItem('ai-lab-journey')!) as { data: { state: { completedSceneIds: unknown[] } } };
@@ -55,8 +54,8 @@ test('completes CHAPTER 01 and restores INPUT CORE BUILD 0.2', async ({ page }) 
   expect(stateBeforeReload).toEqual({ completed: 46, discoveries: 4 });
 
   await page.reload();
-  await expect(page.getByRole('heading', { name: 'CHAPTER 01 COMPLETE' })).toBeVisible();
-  await expect(page.getByText('BUILD 0.2').first()).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'CHAPTER 02 // DECISION ENGINE' })).toBeVisible();
+  await expect(page.getByText('BUILD 0.3').first()).toBeVisible();
   expect(consoleErrors).toEqual([]);
 
   await page.getByRole('button', { name: 'RESET LAB' }).click();

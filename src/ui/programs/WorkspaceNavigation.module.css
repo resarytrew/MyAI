@@ -1,0 +1,7 @@
+.navigation { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1px; margin-bottom: .65rem; border: 1px solid rgb(24 237 240 / 18%); background: rgb(24 237 240 / 12%); }
+.navigation button { display: flex; min-width: 0; align-items: center; justify-content: center; gap: .35rem; border: 0; padding: .46rem .35rem; background: #020c0d; color: #477f81; font-size: .46rem; letter-spacing: .07em; cursor: pointer; transition: background var(--transition-fast), color var(--transition-fast), transform var(--transition-fast); }
+.navigation button:hover:not(:disabled) { background: rgb(24 237 240 / 8%); color: var(--cyan-bright); }
+.navigation button:active:not(:disabled) { transform: translateY(1px); }
+.navigation button[aria-current='page'] { background: rgb(24 237 240 / 11%); color: var(--cyan); box-shadow: inset 0 -1px var(--cyan); }
+.navigation button:disabled { cursor: not-allowed; opacity: .28; }
+@media (max-width: 620px) { .navigation { grid-template-columns: repeat(3, 1fr); } .navigation button { padding-block: .55rem; } }

@@ -247,4 +247,14 @@
   .diagnosticsGrid {
     height: auto;
   }
+
+  .consoleContent {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .actions {
+    grid-template-columns: minmax(0, 1fr);
+    gap: .65rem;
+  }
 }

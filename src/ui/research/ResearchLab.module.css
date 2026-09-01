@@ -1,0 +1,43 @@
+.tool { display: grid; gap: 1rem; }
+.tool > header { display: flex; align-items: center; gap: .65rem; border-bottom: 1px solid var(--border); padding-bottom: .7rem; color: var(--cyan); }
+.tool > header > div { flex: 1; }
+.tool header small { color: var(--orange); font-size: .46rem; letter-spacing: .1em; }
+.tool header h2 { margin: .25rem 0 0; color: var(--cyan-bright); font-size: .9rem; font-weight: 500; }
+.tool textarea { min-height: 13rem; resize: vertical; border: 1px solid var(--border); padding: .8rem; background: #010909; color: var(--text); font: .68rem/1.6 var(--font-mono); outline: none; }
+.tool textarea:focus { border-color: var(--border-strong); }
+.modelGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); gap: .6rem; }
+.modelGrid article { border: 1px solid var(--border); padding: .8rem; background: rgb(24 237 240 / 2%); }
+.modelGrid h3 { margin: .35rem 0 .7rem; color: var(--cyan-bright); font-size: .78rem; font-weight: 500; }
+.modelGrid small { color: var(--muted); font-size: .42rem; }
+.modelGrid dl { display: grid; gap: .3rem; margin: 0 0 .8rem; }
+.modelGrid dl div { display: flex; justify-content: space-between; gap: .5rem; border-top: 1px solid var(--border); padding-top: .3rem; }
+.modelGrid dt,.modelGrid dd { margin: 0; font-size: .48rem; }
+.modelGrid dt { color: var(--muted); }.modelGrid dd { color: var(--cyan); }
+.modelGrid button { display: inline-flex; align-items: center; gap: .3rem; border: 1px solid var(--border-strong); padding: .4rem .55rem; background: transparent; color: var(--cyan); font-size: .48rem; cursor: pointer; }
+.output { overflow: auto; margin: 0; border-left: 2px solid var(--green); padding: .8rem; color: var(--green); font: .64rem/1.6 var(--font-mono); white-space: pre-wrap; }
+.compareSelectors { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: .6rem; }
+.compareSelectors select,.settings select { border: 1px solid var(--border); padding: .55rem; background: #020c0d; color: var(--cyan-bright); font: inherit; }
+.compareSelectors span { color: var(--orange); }
+.comparison { display: grid; gap: 1px; background: rgb(24 237 240 / 12%); }
+.comparison div { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .5rem; padding: .6rem; background: #020c0d; }
+.comparison strong { color: var(--muted); font-size: .52rem; font-weight: 500; }
+.comparison span { color: var(--cyan-bright); font-size: .65rem; }
+.settings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+.settings label { display: flex; align-items: center; justify-content: space-between; gap: .6rem; border-top: 1px solid var(--border); padding: .7rem; color: var(--muted); font-size: .52rem; letter-spacing: .08em; }
+.settings input[type='checkbox'] { width: 1.1rem; height: 1.1rem; accent-color: var(--cyan); }
+.labSelector { display: flex; flex-wrap: wrap; gap: .35rem; }
+.labSelector button { border: 1px solid var(--border); padding: .45rem .6rem; background: transparent; color: var(--muted); cursor: pointer; font: .5rem var(--font-mono); }
+.labSelector button[aria-pressed='true'] { border-color: var(--cyan); background: rgb(24 237 240 / 7%); color: var(--cyan-bright); }
+.authoring { display: grid; gap: 1rem; }
+.authoring > header { display: flex; align-items: end; justify-content: space-between; gap: 1rem; }
+.authoring > header h2 { margin: .25rem 0 0; }
+.authoring > header small { color: var(--orange); font-size: .46rem; letter-spacing: .1em; }
+.authoring > header strong { color: var(--cyan); font: .65rem var(--font-mono); letter-spacing: .1em; }
+.authoringGrid { display: grid; grid-template-columns: minmax(15rem, .75fr) minmax(20rem, 1.25fr); gap: 1rem; }
+.authoringGrid form { display: grid; align-content: start; gap: .7rem; }
+.authoringGrid label { display: grid; gap: .3rem; color: var(--muted); font: .58rem var(--font-mono); letter-spacing: .08em; }
+.authoringGrid input,.authoringGrid textarea,.authoringGrid select { width: 100%; border: 1px solid var(--border); padding: .55rem; background: #020b0c; color: var(--text); font: .72rem var(--font-mono); }
+.authoringGrid textarea { min-height: 5.2rem; resize: vertical; }
+.preview { min-width: 0; border: 1px dashed var(--border-strong); padding: .8rem; }
+@media (max-width: 900px) { .authoringGrid { grid-template-columns: 1fr; } }
+@media (max-width: 580px) { .settings { grid-template-columns: 1fr; } .compareSelectors { grid-template-columns: 1fr; } }

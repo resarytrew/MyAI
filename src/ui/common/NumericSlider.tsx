@@ -21,12 +21,13 @@ export function NumericSlider({
   valueLabel,
 }: NumericSliderProps) {
   const id = useId();
+  const decimals = step < .01 ? 3 : step < 1 ? 2 : 1;
 
   return (
     <div className={styles.control}>
       <div className={styles.header}>
         <label htmlFor={id}>{label}</label>
-        <output htmlFor={id}>{valueLabel ?? value.toFixed(1)}</output>
+        <output htmlFor={id}>{valueLabel ?? value.toFixed(decimals)}</output>
       </div>
       <input
         id={id}
@@ -38,8 +39,8 @@ export function NumericSlider({
         onChange={(event) => onChange(event.currentTarget.valueAsNumber)}
       />
       <div className={styles.range} aria-hidden="true">
-        <span>{min.toFixed(1)}</span>
-        <span>{max.toFixed(1)}</span>
+        <span>{min.toFixed(decimals)}</span>
+        <span>{max.toFixed(decimals)}</span>
       </div>
     </div>
   );

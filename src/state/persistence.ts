@@ -1,11 +1,13 @@
 import type { PersistStorage, StorageValue } from 'zustand/middleware';
 
-export const PERSISTENCE_SCHEMA_VERSION = 2 as const;
+export const PERSISTENCE_SCHEMA_VERSION = 3 as const;
 
 export interface PersistedStateEnvelope<T> {
-  schemaVersion: typeof PERSISTENCE_SCHEMA_VERSION;
+  schemaVersion: number;
   data: T;
 }
+
+export type StateMigration<T> = (state: unknown, fromVersion: number) => T | null;
 
 const persistenceIssues = new Set<string>();
 const issueListeners = new Set<() => void>();
@@ -40,12 +42,16 @@ export function clearPersistenceIssues(): void {
 export function clearAllPersistedLabState(): void {
   localStorage.removeItem('ai-lab-journey');
   localStorage.removeItem('ai-lab-my-ai');
+  localStorage.removeItem('ai-lab-research-log');
+  localStorage.removeItem('ai-lab-settings');
+  localStorage.removeItem('ai-lab-model-workshop');
   clearPersistenceIssues();
 }
 
 export function createVersionedStorage<T>(
   key: string,
   validateState?: (state: unknown) => boolean,
+  migrateState?: StateMigration<T>,
 ): PersistStorage<T> {
   return {
     getItem: () => {
@@ -55,12 +61,24 @@ export function createVersionedStorage<T>(
       try {
         const envelope = JSON.parse(raw) as PersistedStateEnvelope<StorageValue<T>>;
         if (
-          envelope.schemaVersion !== PERSISTENCE_SCHEMA_VERSION ||
           typeof envelope.data !== 'object' ||
           envelope.data === null ||
-          !('state' in envelope.data) ||
-          (validateState && !validateState(envelope.data.state))
+          !('state' in envelope.data)
         ) {
+          reportPersistenceIssue(key);
+          return null;
+        }
+
+        if (envelope.schemaVersion !== PERSISTENCE_SCHEMA_VERSION) {
+          const migrated = migrateState?.(envelope.data.state, envelope.schemaVersion);
+          if (migrated === null || migrated === undefined || (validateState && !validateState(migrated))) {
+            reportPersistenceIssue(key);
+            return null;
+          }
+          return { ...envelope.data, state: migrated } as StorageValue<T>;
+        }
+
+        if (validateState && !validateState(envelope.data.state)) {
           reportPersistenceIssue(key);
           return null;
         }

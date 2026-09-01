@@ -3,12 +3,22 @@ import { useI18n } from '../../i18n/useI18n';
 import { clearAllPersistedLabState } from '../../state/persistence';
 import { useJourneyStore } from '../../state/useJourneyStore';
 import { useMyAIStore } from '../../state/useMyAIStore';
+import { useResearchLogStore } from '../../state/useResearchLogStore';
+import { useModelWorkshopStore } from '../../state/useModelWorkshopStore';
+import { useSettingsStore } from '../../state/useSettingsStore';
+import { clearActiveWorkshopModel } from '../../domain/models/modelWorkshop';
+import { labDatabase } from '../../state/labDatabase';
 import styles from './ResetLabButton.module.css';
 
 export function resetLab(): void {
   useJourneyStore.getState().resetJourney();
   useMyAIStore.getState().resetMyAI();
+  useResearchLogStore.getState().clearLog();
+  useModelWorkshopStore.getState().resetWorkshop();
+  useSettingsStore.getState().resetSettings();
+  clearActiveWorkshopModel();
   clearAllPersistedLabState();
+  void labDatabase.clearAll();
 }
 
 export function ResetLabButton() {

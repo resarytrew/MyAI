@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import type { ChapterScene as ChapterSceneData, SceneSubmission } from '../../domain/journey/sceneTypes';
 import { useI18n } from '../../i18n/useI18n';
 import { TerminalButton } from '../common/TerminalButton';
+import { InteractiveLab } from '../labs/InteractiveLab';
 import { ChapterVisual } from './ChapterVisual';
 import { SceneLayout } from './SceneLayout';
 import styles from './ChapterScene.module.css';
@@ -17,11 +18,13 @@ export function ChapterScene({
   const [selected, setSelected] = useState<string[]>([]);
   const [textValue, setTextValue] = useState('');
   const [deepOpen, setDeepOpen] = useState(false);
+  const [labReady, setLabReady] = useState(false);
 
   useEffect(() => {
     setSelected([]);
     setTextValue('');
     setDeepOpen(false);
+    setLabReady(false);
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, [scene.id]);
 
@@ -32,7 +35,9 @@ export function ChapterScene({
     });
   };
 
-  const canSubmit = scene.content.input
+  const canSubmit = scene.content.lab
+    ? labReady
+    : scene.content.input
     ? textValue.trim().length > 0
     : scene.content.options
       ? selected.length > 0
@@ -60,6 +65,8 @@ export function ChapterScene({
       <p className={styles.body}>{scene.content.body[locale]}</p>
 
       {scene.content.visual ? <ChapterVisual visual={scene.content.visual} /> : null}
+
+      {scene.content.lab ? <InteractiveLab lab={scene.content.lab} sceneId={scene.id} onReadyChange={setLabReady} /> : null}
 
       {scene.content.input ? (
         <label className={styles.textInput}>

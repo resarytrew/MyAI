@@ -1,61 +1,44 @@
 import type { Locale } from '../../i18n/types';
 import type { MyAIReward } from '../my-ai/rewardReducer';
+import type { ProgramId } from '../programs/programRegistry';
 
-export type SceneId =
-  | 'p0-power'
-  | 'p0-system-check'
-  | 'p0-identity'
-  | 'p0-brief'
-  | 'l1-machine-test'
-  | 'l1-provocation'
-  | 'l1-second-test'
-  | 'l1-note'
-  | 'l1-abilities'
-  | 'l1-discovery'
-  | 'l1-status'
-  | 'l2-apple'
-  | 'l2-machine-view'
-  | 'l2-input'
-  | 'l2-inputs'
-  | 'l2-meaning'
-  | 'l2-data-bench'
-  | 'l3-numbers'
-  | 'l3-context'
-  | 'l3-data'
-  | 'l3-information'
-  | 'l3-quality'
-  | 'l3-install-data'
-  | 'l4-scan'
-  | 'l4-select'
-  | 'l4-feature'
-  | 'l4-task-relative'
-  | 'l4-relevance'
-  | 'l4-table'
-  | 'l5-numeric'
-  | 'l5-color'
-  | 'l5-boolean'
-  | 'l5-image'
-  | 'l5-sound'
-  | 'l5-text'
-  | 'l5-representation'
-  | 'l6-brief'
-  | 'l6-examples'
-  | 'l6-select'
-  | 'l6-vector'
-  | 'l6-new-object'
-  | 'l6-dialog'
-  | 'l6-explanation'
-  | 'l6-install-features'
-  | 'chapter-complete'
-  | 'chapter-teaser';
+export type SceneId = string;
 
 export type LocalizedText = Record<Locale, string>;
 
-export type ChapterProgram =
-  | 'BOOTLOADER'
-  | 'SYSTEM DIAGNOSTICS'
-  | 'DATA BENCH'
-  | 'CHAPTER COMPLETE';
+export type ChapterProgram = ProgramId;
+
+export type ScenePrimitive =
+  | 'narrative'
+  | 'briefing'
+  | 'choice'
+  | 'prediction'
+  | 'explain'
+  | 'manipulate'
+  | 'graph'
+  | 'build'
+  | 'tokenize'
+  | 'code'
+  | 'train'
+  | 'generate'
+  | 'observe'
+  | 'discovery'
+  | 'install'
+  | 'reflection'
+  | 'field-test';
+
+export type LabId =
+  | 'linear-parameter'
+  | 'loss-landscape'
+  | 'gradient-step'
+  | 'xor-network'
+  | 'tokenizer'
+  | 'embedding'
+  | 'attention'
+  | 'transformer-assembly'
+  | 'next-token'
+  | 'training'
+  | 'model-assembly';
 
 export type ChapterVisual =
   | 'power'
@@ -107,6 +90,10 @@ export interface ChapterScene {
   type: 'chapter';
   program: ChapterProgram;
   title: LocalizedText;
+  chapterId?: string;
+  chapterNumber?: number;
+  levelId?: string;
+  primitive?: ScenePrimitive;
   nextSceneId?: SceneId;
   rewards?: MyAIReward[];
   content: {
@@ -120,6 +107,7 @@ export interface ChapterScene {
     pendingFeedback?: LocalizedText;
     actionLabel: LocalizedText;
     visual?: ChapterVisual;
+    lab?: LabId;
     input?: {
       label: LocalizedText;
       placeholder: LocalizedText;

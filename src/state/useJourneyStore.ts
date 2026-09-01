@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import type { SceneId } from '../domain/journey/sceneTypes';
 import { createVersionedStorage } from './persistence';
-import { isPersistedJourneyState } from './persistenceSchemas';
+import { isPersistedJourneyState, migratePersistedJourneyState } from './persistenceSchemas';
 
 export interface JourneyState {
   currentSceneId: SceneId;
@@ -37,7 +37,7 @@ export const useJourneyStore = create<JourneyState>()(
               ? state.answers
               : { ...state.answers, [id]: answer },
           startedAt: state.startedAt ?? Date.now(),
-          ...(id === 'chapter-teaser' ? { completedAt: Date.now() } : {}),
+          ...(id === 'c10-complete' ? { completedAt: Date.now() } : {}),
         })),
       resetCurrentScene: () =>
         set((state) => {
@@ -57,6 +57,7 @@ export const useJourneyStore = create<JourneyState>()(
       storage: createVersionedStorage(
         'ai-lab-journey',
         isPersistedJourneyState,
+        migratePersistedJourneyState,
       ),
       partialize: ({ currentSceneId, completedSceneIds, answers, startedAt, completedAt }) => ({
         currentSceneId,

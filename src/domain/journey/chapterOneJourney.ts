@@ -157,7 +157,7 @@ const draft: ChapterScene[] = [
     deepDive: text('Данные не равны пониманию. Они становятся полезными, когда связаны с источником, единицами и задачей.', 'Data are not understanding. They become useful when connected to a source, units, and a task.'),
     actionLabel: text('Записать открытие', 'Record discovery'), tone: 'success',
   }, [
-    { type: 'discover-capability', capabilityId: 'data' },
+    { type: 'discover-module', moduleId: 'data-interface' },
     { type: 'add-discovery', discovery: { id: 'data', sceneId: 'l3-data' } },
   ]),
   scene('l3-information', 'DATA BENCH', 'ДАННЫЕ И ИНФОРМАЦИЯ', 'DATA AND INFORMATION', {
@@ -176,7 +176,7 @@ const draft: ChapterScene[] = [
     body: text('Цепочка WORLD → INPUT → DATA → MY AI готова. Установи первый системный модуль.', 'The WORLD → INPUT → DATA → MY AI chain is ready. Install the first system module.'),
     feedback: text('DATA BUS · INPUT BUFFER · DATA STORAGE — ONLINE. MY AI обновлён до BUILD 0.1.', 'DATA BUS · INPUT BUFFER · DATA STORAGE — ONLINE. MY AI updated to BUILD 0.1.'),
     actionLabel: text('Установить DATA INTERFACE', 'Install DATA INTERFACE'), visual: 'data-install', tone: 'success',
-  }, [{ type: 'install-capability', capabilityId: 'data' }]),
+  }, [{ type: 'install-module', moduleId: 'data-interface' }]),
 
   scene('l4-scan', 'DATA BENCH', 'ЧТО ДЕЙСТВИТЕЛЬНО ВАЖНО?', 'WHAT ACTUALLY MATTERS?', {
     eyebrow: text('LEVEL 04 // OBJECT SCAN', 'LEVEL 04 // OBJECT SCAN'),
@@ -196,7 +196,7 @@ const draft: ChapterScene[] = [
     deepDive: text('Для разных задач один и тот же объект описывается разными наборами признаков.', 'The same object is described by different feature sets for different tasks.'),
     actionLabel: text('Записать открытие', 'Record discovery'), tone: 'success',
   }, [
-    { type: 'discover-capability', capabilityId: 'features' },
+    { type: 'discover-module', moduleId: 'feature-system' },
     { type: 'add-discovery', discovery: { id: 'feature', sceneId: 'l4-feature' } },
   ]),
   scene('l4-task-relative', 'DATA BENCH', 'ОДИН ОБЪЕКТ — РАЗНЫЕ ЗАДАЧИ', 'ONE OBJECT — DIFFERENT TASKS', {
@@ -253,7 +253,11 @@ const draft: ChapterScene[] = [
     body: text('Представление — способ записать объект или явление в форме, с которой может работать система. Это не сам объект, а выбранное для задачи описание.', 'A representation is a way to record an object or phenomenon in a form a system can work with. It is not the object itself, but a task-specific description.'),
     deepDive: text('Одно яблоко можно представить изображением, измерениями цвета и массы или набором признаков. Полезность представления определяется задачей.', 'One apple can be represented as an image, color and mass measurements, or a feature set. The task determines whether a representation is useful.'),
     actionLabel: text('Записать открытие', 'Record discovery'), visual: 'representation', tone: 'success',
-  }, [{ type: 'add-discovery', discovery: { id: 'representation', sceneId: 'l5-representation' } }]),
+  }, [
+    { type: 'add-discovery', discovery: { id: 'representation', sceneId: 'l5-representation' } },
+    { type: 'install-module', moduleId: 'feature-system' },
+    { type: 'discover-module', moduleId: 'representation-layer' },
+  ]),
 
   scene('l6-brief', 'DATA BENCH', 'BOSS // ДАЙ МАШИНЕ ГЛАЗА', 'BOSS // GIVE THE MACHINE EYES', {
     eyebrow: text('LEVEL 06 // LAB INCIDENT', 'LEVEL 06 // LAB INCIDENT'),
@@ -298,9 +302,12 @@ const draft: ChapterScene[] = [
   }),
   scene('l6-install-features', 'DATA BENCH', 'МОДУЛЬ: FEATURE SYSTEM', 'MODULE: FEATURE SYSTEM', {
     body: text('Реестр признаков, входной вектор и слой представления готовы к установке.', 'The feature registry, input vector, and representation layer are ready to install.'),
-    feedback: text('FEATURE REGISTRY · INPUT VECTOR · REPRESENTATION LAYER — ONLINE. MY AI обновлён до BUILD 0.2.', 'FEATURE REGISTRY · INPUT VECTOR · REPRESENTATION LAYER — ONLINE. MY AI updated to BUILD 0.2.'),
+    feedback: text('FEATURE REGISTRY · INPUT VECTOR · REPRESENTATION LAYER — ONLINE. MY AI обновлён до BUILD 0.3.', 'FEATURE REGISTRY · INPUT VECTOR · REPRESENTATION LAYER — ONLINE. MY AI updated to BUILD 0.3.'),
     actionLabel: text('Установить FEATURE SYSTEM', 'Install FEATURE SYSTEM'), visual: 'feature-install', tone: 'success',
-  }, [{ type: 'install-capability', capabilityId: 'features' }]),
+  }, [
+    { type: 'install-module', moduleId: 'representation-layer' },
+    { type: 'certify-core', coreId: 'input' },
+  ]),
 
   scene('chapter-complete', 'CHAPTER COMPLETE', 'CHAPTER 01 COMPLETE', 'CHAPTER 01 COMPLETE', {
     body: text('INITIALIZATION // «НАУЧИ МАШИНУ ВИДЕТЬ». DATA INTERFACE и FEATURE SYSTEM установлены. MY AI получает входы, хранит данные, описывает объекты признаками и создаёт машинные представления.', 'INITIALIZATION // “TEACH THE MACHINE TO SEE.” DATA INTERFACE and FEATURE SYSTEM are installed. MY AI receives inputs, stores data, describes objects with features, and creates machine-readable representations.'),

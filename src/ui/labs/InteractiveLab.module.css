@@ -1,0 +1,59 @@
+.labGrid { display: grid; gap: 1rem; border: 1px solid rgb(24 237 240 / 18%); padding: 1rem; background: rgb(0 16 17 / 66%); }
+.formula { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: .4rem 1rem; border-left: 2px solid var(--cyan); padding: .7rem 1rem; background: rgb(24 237 240 / 4%); }
+.formula small { grid-column: 1 / -1; color: var(--muted); font-size: .58rem; letter-spacing: .12em; }
+.formula strong { font-size: .85rem; font-weight: 500; }
+.formula b { color: var(--orange); font-size: 1.6rem; font-weight: 500; }
+.signalBar { position: relative; display: grid; height: 2rem; align-items: center; overflow: hidden; border: 1px solid var(--border); }
+.signalBar > span { position: absolute; inset: 0; background: linear-gradient(90deg, var(--cyan-dim), var(--orange)); transform-origin: left; transition: transform var(--transition-normal); opacity: .32; }
+.signalBar small { position: relative; padding-inline: .7rem; color: var(--cyan-bright); letter-spacing: .1em; }
+.xorGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .35rem; }
+.xorGrid span { display: grid; gap: .45rem; border: 1px solid var(--border); padding: .7rem; text-align: center; }
+.xorGrid span[data-correct='false'] { border-color: rgb(255 104 79 / 45%); color: var(--danger); }
+.xorGrid span[data-correct='true'] { color: var(--green); }
+.xorGrid b { color: var(--muted); font-size: .55rem; }
+.xorGrid strong { font-size: 1.25rem; }
+.network { display: flex; align-items: center; justify-content: center; gap: .7rem; border-block: 1px solid var(--border); padding: 1rem; }
+.network span,.network strong { border: 1px solid var(--border); padding: .55rem .75rem; }
+.network strong { color: var(--cyan-bright); }
+.labInput { display: grid; gap: .4rem; color: var(--muted); font-size: .58rem; letter-spacing: .12em; }
+.labInput input,.terminalLab input { min-width: 0; border: 1px solid var(--border); padding: .75rem; background: var(--screen-bg); color: var(--cyan-bright); outline: none; }
+.tokens { display: flex; flex-wrap: wrap; gap: .3rem; }
+.tokens span { border: 1px solid var(--border-strong); padding: .35rem .5rem; background: rgb(24 237 240 / 5%); color: var(--cyan-bright); }
+.metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr)); gap: .45rem; margin: 0; }
+.metrics div { display: grid; gap: .3rem; border-top: 1px solid var(--border); padding-top: .45rem; }
+.metrics dt { color: var(--muted); font-size: .52rem; letter-spacing: .09em; text-transform: uppercase; }
+.metrics dd { margin: 0; color: var(--cyan-bright); font-size: .9rem; font-variant-numeric: tabular-nums; }
+.attentionMap { display: grid; grid-template-columns: repeat(4, 1fr); height: 9rem; align-items: end; gap: .5rem; border-bottom: 1px solid var(--border-strong); }
+.attentionMap span { display: grid; grid-template-rows: auto 5rem auto; gap: .3rem; text-align: center; }
+.attentionMap i { align-self: end; width: 100%; height: 100%; background: linear-gradient(var(--cyan), var(--cyan-dim)); transform-origin: bottom; transition: transform var(--transition-normal); opacity: .5; }
+.attentionMap small { color: var(--muted); }
+.assemblySlots { display: grid; grid-template-columns: repeat(6, 1fr); gap: .35rem; }
+.assemblySlots span { display: grid; min-height: 4rem; place-items: center; border: 1px dashed var(--border-strong); padding: .35rem; color: var(--muted); font-size: .52rem; text-align: center; }
+.assemblySlots span[data-filled='true'] { border-style: solid; background: rgb(24 237 240 / 6%); color: var(--cyan-bright); }
+.partTray { display: flex; flex-wrap: wrap; gap: .4rem; }
+.partTray button,.textButton { border: 1px solid var(--border); padding: .55rem .7rem; background: transparent; color: var(--cyan); cursor: pointer; }
+.partTray button:hover,.textButton:hover { background: rgb(24 237 240 / 8%); }
+.failure { margin: 0; border-left: 2px solid var(--danger); padding: .7rem; color: var(--danger); background: rgb(255 104 79 / 5%); }
+.distribution { display: grid; gap: .55rem; }
+.distribution span { display: grid; grid-template-columns: 5rem 1fr 3rem; align-items: center; gap: .6rem; }
+.distribution i { height: .5rem; background: var(--cyan); transform-origin: left; opacity: .65; }
+.distribution small { color: var(--muted); text-align: right; }
+.promptLine { margin: 0; border-bottom: 1px solid var(--border); padding: .8rem; color: var(--text); }
+.promptLine b { color: var(--orange); }
+.lossGraph { display: flex; height: 7rem; align-items: end; gap: .25rem; border-bottom: 1px solid var(--border-strong); padding: .4rem; }
+.lossGraph i { flex: 1; min-width: .35rem; background: var(--cyan); opacity: .5; transition: height var(--transition-normal); }
+.labGrid blockquote { margin: 0; border-left: 2px solid var(--green); padding: .8rem; color: var(--green); line-height: 1.5; }
+.labGrid blockquote small { display: block; margin-bottom: .4rem; color: var(--muted); }
+.running { color: var(--orange); letter-spacing: .12em; animation: lab-blink 1s steps(2) infinite; }
+.configGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.configSelectors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .65rem; }
+.configSelectors label { display: grid; gap: .35rem; color: var(--muted); font: .5rem var(--font-mono); letter-spacing: .08em; }
+.configSelectors select { width: 100%; border: 1px solid var(--border); padding: .55rem; background: #020b0c; color: var(--cyan-bright); font: .62rem var(--font-mono); }
+.terminalLab { display: grid; gap: 1rem; border: 1px solid rgb(37 239 177 / 35%); padding: 1.1rem; background: #010505; }
+.terminalLab > p { margin: 0; color: var(--green); letter-spacing: .1em; }
+.terminalLab label { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .6rem; color: var(--green); }
+.terminalLab input { border-color: rgb(37 239 177 / 35%); color: var(--green); }
+.terminalLab pre { overflow: auto; margin: 0; border-top: 1px solid rgb(37 239 177 / 25%); padding-top: 1rem; color: var(--green); font: inherit; white-space: pre-wrap; }
+@keyframes lab-blink { 50% { opacity: .45; } }
+@media (max-width: 680px) { .xorGrid,.attentionMap { grid-template-columns: repeat(2, 1fr); height: auto; } .assemblySlots { grid-template-columns: repeat(2, 1fr); } .configGrid,.configSelectors { grid-template-columns: 1fr; } .distribution span { grid-template-columns: 4rem 1fr 2.8rem; } }
+@media (prefers-reduced-motion: reduce) { .running { animation: none; } }

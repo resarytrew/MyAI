@@ -1,5 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { LazyMotion, domAnimation } from 'framer-motion';
 import { App } from './app/App';
 import { initializeApp } from './app/initializeApp';
 import { I18nProvider } from './i18n/I18nProvider';
@@ -19,12 +20,14 @@ if (!root) {
 
 createRoot(root).render(
   <StrictMode>
-    <I18nProvider>
-      <AppErrorBoundary>
-        <PersistenceRecovery>
-          <App />
-        </PersistenceRecovery>
-      </AppErrorBoundary>
-    </I18nProvider>
+    <LazyMotion features={domAnimation} strict>
+      <I18nProvider>
+        <AppErrorBoundary>
+          <PersistenceRecovery>
+            <App />
+          </PersistenceRecovery>
+        </AppErrorBoundary>
+      </I18nProvider>
+    </LazyMotion>
   </StrictMode>,
 );

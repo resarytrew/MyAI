@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { m, useReducedMotion } from 'framer-motion';
 import { useState, type KeyboardEvent } from 'react';
 import { computeLinearNeuron } from '../../domain/experiments';
 import { useI18n } from '../../i18n/useI18n';
@@ -90,7 +90,7 @@ export function LinearNeuronView({
           </marker>
         </defs>
 
-        <motion.path
+        <m.path
           className={styles.signalPath}
           d="M108 98H238M326 98H442M522 98H640M482 196V140"
           markerEnd="url(#neuron-arrow)"

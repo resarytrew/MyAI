@@ -25,6 +25,6 @@ describe('MonitorShell', () => {
     expect(screen.getByRole('heading', { name: 'MY AI' })).toBeInTheDocument();
     expect(screen.getByText('BUILD 0.0')).toBeInTheDocument();
     expect(screen.getByText('LANGUAGE MODEL')).toBeInTheDocument();
-    expect(screen.getAllByLabelText('заблокировано')).toHaveLength(9);
+    expect(screen.getAllByLabelText(/OFFLINE/)).toHaveLength(8);
   });
 });

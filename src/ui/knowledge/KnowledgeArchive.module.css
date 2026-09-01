@@ -1,0 +1,23 @@
+.map { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1px; margin-bottom: 1rem; background: rgb(24 237 240 / 12%); }
+.map section { min-width: 0; padding: .55rem; background: #020c0d; }
+.map header { display: flex; align-items: center; gap: .4rem; margin-bottom: .45rem; color: #426a6c; font-size: .42rem; }
+.map header span { border: 1px solid var(--border); padding: .16rem .25rem; color: var(--orange); }
+.map header strong { overflow: hidden; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.map section > div { display: grid; gap: .22rem; }
+.map button { overflow: hidden; border: 0; border-left: 1px solid #20484a; padding: .25rem .35rem; background: transparent; color: #477f81; font-size: .4rem; text-align: left; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; }
+.map button:disabled { color: #19383a; cursor: default; }
+.map button[aria-pressed='true'] { border-left-color: var(--cyan); color: var(--cyan-bright); background: rgb(24 237 240 / 5%); }
+.entry { border: 1px solid var(--border); padding: 1rem; background: rgb(0 9 10 / 76%); }
+.entry > header { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); margin-bottom: .9rem; padding-bottom: .8rem; color: var(--cyan); }
+.entry h2,.entry small { margin: 0; }
+.entry h2 { margin-top: .25rem; color: var(--cyan-bright); font-family: var(--font-display); font-size: 1.55rem; font-weight: 400; }
+.entry small { color: var(--orange); font-size: .48rem; letter-spacing: .11em; }
+.entryGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; margin-bottom: .8rem; }
+.entryGrid section { border-top: 1px solid var(--border); padding: .65rem; background: rgb(24 237 240 / 2%); }
+.entryGrid section[data-locked='true'] { opacity: .5; }
+.entryGrid h3 { display: flex; align-items: center; gap: .35rem; margin: 0 0 .45rem; color: var(--cyan); font-size: .5rem; font-weight: 500; letter-spacing: .1em; }
+.entryGrid p { margin: 0; color: var(--muted); font-size: .62rem; line-height: 1.55; }
+.entryGrid code,.entryGrid pre { display: block; overflow: auto; margin-top: .5rem; border-left: 1px solid var(--orange); padding: .45rem; color: var(--orange); font: .62rem/1.5 var(--font-mono); white-space: pre-wrap; }
+.entry > button { display: inline-flex; align-items: center; gap: .4rem; }
+@media (max-width: 820px) { .map { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .map,.entryGrid { grid-template-columns: 1fr; } }

@@ -1,7 +1,8 @@
-import type { ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useI18n } from '../../i18n/useI18n';
 import { MyAIStatus } from './MyAIStatus';
 import { ResetLabButton } from '../common/ResetLabButton';
+import { useSettingsStore } from '../../state/useSettingsStore';
 import styles from './MonitorShell.module.css';
 import industrial from './MonitorShellIndustrial.module.css';
 import boot from './MonitorShellBoot.module.css';
@@ -10,6 +11,10 @@ interface MonitorShellProps {
   activeProgram: string;
   sceneIndex?: number;
   sceneTotal?: number;
+  chapterNumber?: number;
+  chapterCode?: string;
+  levelLabel?: string;
+  focusMode?: boolean;
   children: ReactNode;
 }
 
@@ -17,16 +22,49 @@ export function MonitorShell({
   activeProgram,
   sceneIndex = 1,
   sceneTotal = 10,
+  chapterNumber = 1,
+  chapterCode = 'INITIALIZATION',
+  levelLabel = 'LEVEL 01',
+  focusMode = false,
   children,
 }: MonitorShellProps) {
   const { locale, setLocale, t } = useI18n();
-  const currentLevel = Math.min(6, Math.max(1, Math.ceil((sceneIndex / sceneTotal) * 6)));
+  const settings = useSettingsStore();
+  const [soundCaption, setSoundCaption] = useState('');
+  const captionTimer = useRef<number>();
+  const currentLevel = Math.max(1, Number(levelLabel.match(/\d+/)?.[0] ?? 1));
   const isBootSequence = activeProgram === 'BOOTLOADER' && sceneIndex === 1;
   const programLabel = isBootSequence ? 'AI LAB OS / BOOTLOADER' : activeProgram;
 
+  useEffect(() => () => { if (captionTimer.current) window.clearTimeout(captionTimer.current); }, []);
+
+  const playInterfaceCue = () => {
+    if (!settings.sound) return;
+    setSoundCaption(locale === 'ru' ? 'ЗВУК: подтверждение интерфейса' : 'SOUND: interface confirmation');
+    if (captionTimer.current) window.clearTimeout(captionTimer.current);
+    captionTimer.current = window.setTimeout(() => setSoundCaption(''), 1_200);
+    try {
+      const AudioContextClass = window.AudioContext;
+      const audio = new AudioContextClass();
+      const oscillator = audio.createOscillator();
+      const gain = audio.createGain();
+      oscillator.frequency.value = 620;
+      gain.gain.setValueAtTime(.035, audio.currentTime);
+      gain.gain.exponentialRampToValueAtTime(.0001, audio.currentTime + .06);
+      oscillator.connect(gain).connect(audio.destination);
+      oscillator.start();
+      oscillator.stop(audio.currentTime + .06);
+      oscillator.addEventListener('ended', () => { void audio.close(); }, { once: true });
+    } catch {
+      // Audio may be unavailable under browser privacy policies; the caption still conveys the cue.
+    }
+  };
+
   return (
-    <main className={`${styles.station} ${industrial.station}`}>
-      <div className={`${styles.ambient} ${industrial.ambient}`} aria-hidden="true" />
+    <main id="main-content" className={`${styles.station} ${industrial.station}`} onClickCapture={(event) => { if ((event.target as HTMLElement).closest('button')) playInterfaceCue(); }}>
+      <a className={styles.skipLink} href="#workspace-content">{locale === 'ru' ? 'К содержимому' : 'Skip to content'}</a>
+      <span className={styles.soundCaption} role="status" aria-live="polite">{soundCaption}</span>
+      {settings.ambient ? <div className={`${styles.ambient} ${industrial.ambient}`} aria-hidden="true" /> : null}
       <section className={`${styles.monitor} ${industrial.monitor}`} aria-label={t('monitorLabel')}>
         <div className={industrial.outerPatina} aria-hidden="true" />
         <div className={industrial.innerBody} aria-hidden="true" />
@@ -76,7 +114,14 @@ export function MonitorShell({
             <div className={industrial.innerBezel}>
               <div className={industrial.screenGlass}>
                 <div className={`${styles.screenFrame} ${industrial.screenFrame}`}>
-                  <div className={`${styles.screen} ${industrial.screen} ${isBootSequence ? boot.screen : ''}`} data-boot-sequence={isBootSequence}>
+                  <div
+                    className={`${styles.screen} ${industrial.screen} ${isBootSequence ? boot.screen : ''}`}
+                    data-boot-sequence={isBootSequence}
+                    data-phosphor={settings.phosphor}
+                    data-animations={settings.animations}
+                    data-font-scale={settings.fontScale}
+                    data-focus-mode={focusMode}
+                  >
                     <header className={`${styles.screenHeader} ${isBootSequence ? boot.screenHeader : ''}`}>
                       <p>
                         <span className={styles.liveDot} aria-hidden="true" />
@@ -87,13 +132,13 @@ export function MonitorShell({
                         <span className={`${styles.chapterTrail} ${isBootSequence ? boot.chapterTrail : ''}`}>
                           {isBootSequence
                             ? <>CHAPTER 01&nbsp;&nbsp;/&nbsp;&nbsp;INITIALIZATION&nbsp;&nbsp;/&nbsp;&nbsp;RESTORE INPUT CORE</>
-                            : <>CHAPTER 01&nbsp;&nbsp;/&nbsp;&nbsp;INITIALIZATION</>}
+                            : <>CHAPTER {String(chapterNumber).padStart(2, '0')}&nbsp;&nbsp;/&nbsp;&nbsp;{chapterCode}</>}
                         </span>
                         {!isBootSequence ? (
                           <>
-                            <span className={styles.levelReadout}>LEVEL {String(currentLevel).padStart(2, '0')} / 06</span>
-                            <span className={styles.levelRail} aria-label={`Level ${currentLevel} of 6`}>
-                              {Array.from({ length: 6 }, (_, index) => (
+                            <span className={styles.levelReadout}>{levelLabel.toUpperCase()}</span>
+                            <span className={styles.levelRail} aria-label={`Chapter ${chapterNumber} progress`}>
+                              {Array.from({ length: 8 }, (_, index) => (
                                 <i key={index} data-state={index + 1 < currentLevel ? 'done' : index + 1 === currentLevel ? 'active' : 'locked'} />
                               ))}
                             </span>
@@ -108,14 +153,14 @@ export function MonitorShell({
                       </div>
                     </header>
 
-                    <div className={`${styles.workspace} ${isBootSequence ? boot.workspace : ''}`}>
+                    <div id="workspace-content" tabIndex={-1} className={`${styles.workspace} ${isBootSequence ? boot.workspace : ''}`} data-focus-mode={focusMode}>
                       <div className={`${styles.scene} ${isBootSequence ? boot.scene : ''}`}>{children}</div>
                       <MyAIStatus referenceMode={isBootSequence} />
                     </div>
 
                     <div className={industrial.glassReflection} aria-hidden="true" />
-                    <div className={styles.crtScanlines} aria-hidden="true" />
-                    <div className={styles.crtNoise} aria-hidden="true" />
+                    {settings.scanlines ? <div className={styles.crtScanlines} aria-hidden="true" /> : null}
+                    {settings.phosphor !== 'off' ? <div className={styles.crtNoise} aria-hidden="true" /> : null}
                     <div className={styles.crtVignette} aria-hidden="true" />
                     <div className={styles.powerOn} aria-hidden="true"><span /></div>
                   </div>

@@ -548,6 +548,13 @@
     padding: .5rem 0 1rem;
   }
 
+  .consolePanel,
+  .diagnosticsPanel,
+  .actions {
+    width: 100%;
+    min-width: 0;
+  }
+
   .hero {
     min-height: 5.6rem;
     gap: .9rem;
@@ -579,6 +586,8 @@
   }
 
   .consoleContent {
+    width: 100%;
+    min-width: 0;
     grid-template-columns: 1fr;
     padding: .95rem 1rem 1rem;
   }
@@ -623,6 +632,8 @@
 
   .primaryAction,
   .secondaryAction {
+    width: 100%;
+    min-width: 0;
     min-height: 4.25rem;
   }
 }
@@ -643,6 +654,7 @@
   .narrative,
   .prompt {
     font-size: .64rem;
+    overflow-wrap: anywhere;
   }
 
   .dots {
